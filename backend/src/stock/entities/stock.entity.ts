@@ -1,4 +1,5 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Restaurant} from "../../restaurant/entities/restaurant.entity";
 
 @Entity()
 export class Stock {
@@ -13,4 +14,7 @@ export class Stock {
 
     @Column()
     Delivery_Date: Date;
+
+    @ManyToOne(() => Restaurant, (restaurant) => restaurant.stocks)
+    restaurant: Restaurant;
 }

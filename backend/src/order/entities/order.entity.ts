@@ -1,5 +1,6 @@
-import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {IsNumber} from "class-validator";
+import {Client} from "../../client/entities/client.entity";
 
 @Entity()
 export class Order {
@@ -15,4 +16,7 @@ export class Order {
     @IsNumber()
     @Column()
     total_amount: number;
+
+    @ManyToOne(() => Client, (client) => client.orders)
+    client: Client;
 }

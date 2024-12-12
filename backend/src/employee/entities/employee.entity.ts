@@ -1,6 +1,7 @@
-import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {IsNumber, IsString} from "class-validator";
 import {position} from "../../enum/position";
+import {Restaurant} from "../../restaurant/entities/restaurant.entity";
 
 @Entity()
 export class Employee {
@@ -26,4 +27,7 @@ export class Employee {
 
     @IsNumber()
     salary: number;
+
+    @ManyToOne(() => Restaurant, (restaurant) => restaurant.employees)
+    restaurant: Restaurant;
 }
