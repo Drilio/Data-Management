@@ -1,30 +1,62 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable, InternalServerErrorException} from '@nestjs/common';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import {InjectRepository} from "@nestjs/typeorm";
+import {Employee} from "./entities/employee.entity";
+import {Repository} from "typeorm";
 
 @Injectable()
 export class EmployeeService {
 
-  constructor(){
+  constructor(
+      @InjectRepository(Employee)
+      private employeeRepository: Repository<Employee>,
+  ){
 
   }
-  create(createEmployeeDto: CreateEmployeeDto) {
-    return 'This action adds a new employee';
+  async create(createEmployeeDto: CreateEmployeeDto) {
+    try {
+      const restaurant = this.employeeRepository.create(createEmployeeDto);
+      return await this.employeeRepository.save(restaurant);
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException('an error occurred while creating a employee', error);
+    }
   }
 
-  findAll() {
-    return `This action returns all employee`;
+  async findAll() {
+    try {
+      return await this.employeeRepository.find();
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException('an error occurred while finding All employee', error);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} employee`;
+  async findOne(employeeId: number) {
+    try {
+      return await this.employeeRepository.findOne({where: {id: employeeId}});
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException(`an error occurred while finding the employee with id:${employeeId}`)
+    }
   }
 
-  update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
-    return `This action updates a #${id} employee`;
+  async update(employeeId: number, updateEmployeeDto: UpdateEmployeeDto) {
+    try {
+      return await this.employeeRepository.update(employeeId, updateEmployeeDto);
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException('an error occurred while updating an employee', error);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} employee`;
+  async remove(employeeId: number) {
+    try {
+      return await this.employeeRepository.delete(employeeId);
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException(`an error occurred while removing the employee id : ${employeeId}`, error);
+    }
   }
 }
