@@ -8,6 +8,7 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import { EmployeeModule } from './employee/employee.module';
 import { SupplierModule } from './supplier/supplier.module';
 import { ClientModule } from './client/client.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [ ConfigModule.forRoot({
@@ -25,7 +26,8 @@ import { ClientModule } from './client/client.module';
     RestaurantModule,
     EmployeeModule,
     SupplierModule,
-    ClientModule],
+    ClientModule,
+    OrderModule],
   controllers: [AppController],
   providers: [AppService],
 })
