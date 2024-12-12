@@ -7,6 +7,7 @@ import dbConfiguration from './config/db.config';
 import {TypeOrmModule} from "@nestjs/typeorm";
 import { EmployeeModule } from './employee/employee.module';
 import { SupplierModule } from './supplier/supplier.module';
+import { ClientModule } from './client/client.module';
 
 @Module({
   imports: [ ConfigModule.forRoot({
@@ -23,7 +24,8 @@ import { SupplierModule } from './supplier/supplier.module';
   }),
     RestaurantModule,
     EmployeeModule,
-    SupplierModule],
+    SupplierModule,
+    ClientModule],
   controllers: [AppController],
   providers: [AppService],
 })
