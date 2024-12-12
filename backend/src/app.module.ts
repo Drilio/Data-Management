@@ -9,6 +9,8 @@ import { EmployeeModule } from './employee/employee.module';
 import { SupplierModule } from './supplier/supplier.module';
 import { ClientModule } from './client/client.module';
 import { OrderModule } from './order/order.module';
+import { MenuModule } from './menu/menu.module';
+import { StockModule } from './stock/stock.module';
 
 @Module({
   imports: [ ConfigModule.forRoot({
@@ -27,7 +29,9 @@ import { OrderModule } from './order/order.module';
     EmployeeModule,
     SupplierModule,
     ClientModule,
-    OrderModule],
+    OrderModule,
+    MenuModule,
+    StockModule],
   controllers: [AppController],
   providers: [AppService],
 })
