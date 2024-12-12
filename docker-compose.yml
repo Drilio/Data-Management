@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  db:
+    image: mariadb:latest
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_PASS}
+      MARIADB_DATABASE: ${DB_DATABASE}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASS}
+    restart: unless-stopped
+    volumes:
+      - ./mariaDB/data:/var/lib/mysql:rw
+    networks:
+      - app-network
+
+  backend:
+    build: ./backend
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PASS: ${DB_PASS}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PORT: ${DB_EXPOSE_PORT}
+    depends_on:
+      - db
+    restart: ${RESTART}
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
