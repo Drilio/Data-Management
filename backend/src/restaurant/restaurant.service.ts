@@ -24,7 +24,7 @@ export class RestaurantService {
 
   async findAll() {
     try {
-      const restaurants = await this.restaurantRepository.find({
+      return await this.restaurantRepository.find({
         relations: ['supplier', 'menus', 'stocks', 'clients', 'employees'],
       });
     } catch (error) {
