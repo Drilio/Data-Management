@@ -23,9 +23,7 @@ export class SupplierService {
 
   async findAll() {
     try {
-      return await this.supplierRepository.find({
-        relations: ['supplier', 'menus', 'stocks', 'clients', 'employees'],
-      });
+      return await this.supplierRepository.find();
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException('an error occurred while finding All supplier', error);
@@ -33,9 +31,7 @@ export class SupplierService {
 
   async findOne(supplierId: number) {
     try {
-      return await this.supplierRepository.findOne({where : {id:supplierId},
-        relations: ['supplier', 'menus', 'stocks', 'clients', 'employees'],
-      });
+      return await this.supplierRepository.findOne({where : {id:supplierId}});
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException(`an error occurred while finding the supplier with id:${supplierId}`)
