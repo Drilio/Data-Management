@@ -26,7 +26,8 @@ export class RestaurantService {
     try {
       const restaurants = await this.restaurantRepository.find({
         relations: ['supplier', 'menus', 'stocks', 'clients', 'employees'],
-      });    } catch (error) {
+      });
+    } catch (error) {
       console.error(error);
       throw new InternalServerErrorException('an error occurred while finding All restaurants', error);
     }
