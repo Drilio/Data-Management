@@ -12,18 +12,15 @@ export class StockService {
       private readonly stockRepository: Repository<Stock>,
   ) {}
 
-  // Création d'un nouveau stock
   async create(createStockDto: CreateStockDto): Promise<Stock> {
     const newStock = this.stockRepository.create(createStockDto);
     return await this.stockRepository.save(newStock);
   }
 
-  // Récupérer tous les stocks
   async findAll(): Promise<Stock[]> {
     return await this.stockRepository.find();
   }
 
-  // Récupérer un stock par ID
   async findOne(id: number): Promise<Stock> {
     const stock = await this.stockRepository.findOne({ where: { id } });
     if (!stock) {
@@ -32,16 +29,14 @@ export class StockService {
     return stock;
   }
 
-  // Mise à jour d'un stock par ID
   async update(id: number, updateStockDto: UpdateStockDto): Promise<Stock> {
-    const stock = await this.findOne(id); // Vérifie si le stock existe
-    Object.assign(stock, updateStockDto); // Met à jour les champs
+    const stock = await this.findOne(id);
+    Object.assign(stock, updateStockDto);
     return await this.stockRepository.save(stock);
   }
 
-  // Suppression d'un stock par ID
   async remove(id: number): Promise<void> {
-    const stock = await this.findOne(id); // Vérifie si le stock existe
+    const stock = await this.findOne(id);
     await this.stockRepository.remove(stock);
   }
 }
