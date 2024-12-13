@@ -25,7 +25,7 @@ export class MenuService {
 
   async findAll() {
     try {
-      return await this.menuRepository.find();
+      return await this.menuRepository.find({relations:['restaurant']});
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException('an error occurred while finding All menu', error);
@@ -33,7 +33,7 @@ export class MenuService {
 
   async findOne(menuId: number) {
     try {
-      return await this.menuRepository.findOne({where : {id:menuId}});
+      return await this.menuRepository.findOne({where : {id:menuId},relations:['restaurant']});
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException(`an error occurred while finding the menu with id:${menuId}`)
