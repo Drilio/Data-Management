@@ -18,11 +18,11 @@ export class StockService {
   }
 
   async findAll(): Promise<Stock[]> {
-    return await this.stockRepository.find();
+    return await this.stockRepository.find({relations: ['restaurant']});
   }
 
   async findOne(id: number): Promise<Stock> {
-    const stock = await this.stockRepository.findOne({ where: { id } });
+    const stock = await this.stockRepository.findOne({ where: { id }, relations: ['restaurant'] });
     if (!stock) {
       throw new NotFoundException(`Stock with ID ${id} not found`);
     }

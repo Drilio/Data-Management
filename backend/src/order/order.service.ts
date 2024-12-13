@@ -23,7 +23,7 @@ export class OrderService {
 
   async findAll() {
     try {
-      return await this.orderRepository.find();
+      return await this.orderRepository.find({relations:['client']});
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException('an error occurred while finding All order', error);
@@ -31,7 +31,7 @@ export class OrderService {
 
   async findOne(orderId: number) {
     try {
-      return await this.orderRepository.findOne({where : {id:orderId}});
+      return await this.orderRepository.findOne({where : {id:orderId},relations:['client']} );
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException(`an error occurred while finding the order with id:${orderId}`)
