@@ -24,8 +24,9 @@ export class RestaurantService {
 
   async findAll() {
     try {
-      return await this.restaurantRepository.find();
-    } catch (error) {
+      const restaurants = await this.restaurantRepository.find({
+        relations: ['supplier', 'menus', 'stocks', 'clients', 'employees'],
+      });    } catch (error) {
       console.error(error);
       throw new InternalServerErrorException('an error occurred while finding All restaurants', error);
     }
@@ -33,7 +34,7 @@ export class RestaurantService {
 
   async findOne(restaurantId: number) {
     try {
-      return await this.restaurantRepository.findOne({where : {id:restaurantId}});
+      return await this.restaurantRepository.findOne({where : {id:restaurantId},relations: ['supplier', 'menus', 'stocks', 'clients', 'employees'],});
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException(`an error occurred while finding the restaurant with id:${restaurantId}`)
