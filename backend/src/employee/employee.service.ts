@@ -26,7 +26,7 @@ export class EmployeeService {
 
   async findAll() {
     try {
-      return await this.employeeRepository.find();
+      return await this.employeeRepository.find({relations: ['restaurant']});
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException('an error occurred while finding All employee', error);
@@ -35,7 +35,7 @@ export class EmployeeService {
 
   async findOne(employeeId: number) {
     try {
-      return await this.employeeRepository.findOne({where: {id: employeeId}});
+      return await this.employeeRepository.findOne({where: {id: employeeId}, relations: ['restaurant']});
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException(`an error occurred while finding the employee with id:${employeeId}`)

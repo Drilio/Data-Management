@@ -24,7 +24,7 @@ export class ClientService {
 
   async findAll() {
     try {
-      return await this.clientRepository.find();
+      return await this.clientRepository.find({relations: ['restaurant', 'orders']});
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException('an error occurred while finding All client', error);
@@ -32,7 +32,7 @@ export class ClientService {
 
   async findOne(clientId: number) {
     try {
-      return await this.clientRepository.findOne({where : {id:clientId}});
+      return await this.clientRepository.findOne({where : {id:clientId},relations: ['restaurant', 'orders']});
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException(`an error occurred while finding the client with id:${clientId}`)
