@@ -12,15 +12,15 @@ export class RestaurantService {
       @InjectRepository(Restaurant)
       private readonly restaurantRepository: Repository<Restaurant>, ) {}
 
-      async create(createRestaurantDto: CreateRestaurantDto) {
-        try {
-          const restaurant = this.restaurantRepository.create(createRestaurantDto);
-          return await this.restaurantRepository.save(restaurant);
-        } catch (error) {
-          console.error(error);
-          throw new InternalServerErrorException('an error occurred while creating a restaurant', error);
-        }
-      }
+  async create(createRestaurantDto: CreateRestaurantDto) {
+    try {
+      const restaurant = this.restaurantRepository.create(createRestaurantDto);
+      return await this.restaurantRepository.save(restaurant);
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException('an error occurred while creating a restaurant', error);
+    }
+  }
 
   async findAll() {
     try {
@@ -41,12 +41,12 @@ export class RestaurantService {
   }
 
   async update(restaurantId: number, updateRestaurantDto: UpdateRestaurantDto) {
-   try{
-    return await this.restaurantRepository.update(restaurantId, updateRestaurantDto);
-   }catch(error){
-     console.error(error);
-     throw new InternalServerErrorException('an error occurred while updating an restaurant', error);
-   }
+    try{
+      return await this.restaurantRepository.update(restaurantId, updateRestaurantDto);
+    }catch(error){
+      console.error(error);
+      throw new InternalServerErrorException('an error occurred while updating an restaurant', error);
+    }
   }
 
   async remove(restaurantId: number) {

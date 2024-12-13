@@ -18,6 +18,7 @@ export class Supplier {
     @Column()
     phone: string;
 
+    @Column()
     @IsString()
     address: string;
 }

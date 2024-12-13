@@ -25,6 +25,7 @@ export class Employee {
     })
     date_of_hire:Date;
 
+    @Column()
     @IsNumber()
     salary: number;
 
