@@ -1,4 +1,4 @@
-import {Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {IsString} from "class-validator";
 import {Restaurant} from "../../restaurant/entities/restaurant.entity";
 import {Order} from "../../order/entities/order.entity";
@@ -10,7 +10,11 @@ export class Client {
 
     @IsString()
     @Column()
-    name: string;
+    lastName: string;
+
+    @IsString()
+    @Column()
+    firstName: string;
 
     @IsString()
     @Column()
@@ -23,6 +27,12 @@ export class Client {
     @IsString()
     @Column()
     address: string;
+
+    @CreateDateColumn({
+        type: 'timestamp',
+        default: () => 'CURRENT_TIMESTAMP(6)',
+    })
+    inscription_date:Date;
 
     @ManyToOne(() => Restaurant, (restaurant) => restaurant.clients)
     restaurant: Restaurant;

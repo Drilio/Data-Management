@@ -16,7 +16,7 @@ export class Supplier {
 
     @IsString()
     @Column()
-    phone: string;
+    phone_number: string;
 
     @Column()
     @IsString()

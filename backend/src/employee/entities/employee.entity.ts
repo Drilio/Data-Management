@@ -10,7 +10,7 @@ export class Employee {
 
     @IsString()
     @Column()
-    name: string;
+    lastName: string;
 
     @IsString()
     @Column()
