@@ -1,9 +1,9 @@
-import {Injectable, InternalServerErrorException} from '@nestjs/common';
+import {ConflictException, Injectable, InternalServerErrorException} from '@nestjs/common';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 import {InjectRepository} from "@nestjs/typeorm";
 import {Client} from "./entities/client.entity";
-import {Repository} from "typeorm";
+import {QueryFailedError, Repository} from "typeorm";
 
 @Injectable()
 export class ClientService {
@@ -18,9 +18,16 @@ export class ClientService {
       const restaurant = this.clientRepository.create(createClientDto);
       return await this.clientRepository.save(restaurant);
     } catch (error) {
+      if (error instanceof QueryFailedError) {
+        const driverError = (error as any).driverError;
+        if (driverError.code === '23505' || driverError.errno === 1062) {
+          throw new ConflictException('A client with this email already exists.');
+        }
+      }
       console.error(error);
-      throw new InternalServerErrorException('an error occurred while creating a client', error);
-    }  }
+      throw new InternalServerErrorException('An error occurred while creating a client.', error);
+    }
+  }
 
   async findAll() {
     try {
