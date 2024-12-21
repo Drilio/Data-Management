@@ -9,6 +9,8 @@ export class EmployeeController {
 
   @Post()
   create(@Body() createEmployeeDto: CreateEmployeeDto) {
+    console.log('--------------------------createEmployeeDto--------------------------');
+    console.log(createEmployeeDto);
     return this.employeeService.create(createEmployeeDto);
   }
 
