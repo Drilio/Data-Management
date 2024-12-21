@@ -1,5 +1,7 @@
 export enum position {
-    BOSS="boss",
-    COOK="cook",
-    WAITER="waiter",
+    RESPONSABLE="Responsable",
+    CUISINIER="Cuisinier",
+    SERVEUR="Serveur",
+    PLONGEUR="Plongeur",
+    CHEF_CUISINIER="Chef Cuisinier",
 }
