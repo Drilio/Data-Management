@@ -3,8 +3,6 @@ import {Restaurant} from "../../restaurant/entities/restaurant.entity";
 import {Order} from "../../order/entities/order.entity";
 import {Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {IsString} from "class-validator";
-import {Restaurant} from "../../restaurant/entities/restaurant.entity";
-import {Order} from "../../order/entities/order.entity";
 
 @Entity()
 @Index(['email'], { unique: true })
