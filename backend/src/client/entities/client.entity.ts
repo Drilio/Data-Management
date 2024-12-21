@@ -27,7 +27,7 @@ export class Client {
     phone_number: string;
 
     @IsString()
-    @Column()
+    @Column({nullable:true})
     address: string;
 
     @CreateDateColumn({
